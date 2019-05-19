@@ -1,0 +1,58 @@
+---
+title: "CA HR2W - Violations"
+author: "Team: Below The Mean"
+date: "5/19/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(urbnmapr)
+```
+
+### Human Right to Water (HR2W)
+
+Every human being has the right to safe, clean, affordable, and accessible water adequate for human consumption, cooking, and sanitary purposes.
+
+We’ve decided to focus our efforts on examining active violations of the HR2W dataset. The dataset contains ~6,400 violations with interesting characteristics about violation type, analyte in violation, amount above threshold, as well as date and time of violation.
+
+We want to answer questions such as:
+
+1. Where are the most violations occurring over time?
+2. What are the most common violations?
+3. What is the response time to resolution of violations? Do more affluent counties have quicker resolution times?
+4. What analytes show the largest departure from acceptable threshold on average?
+
+
+
+```{r}
+ca_counties <- urbnmapr::counties %>% 
+  filter(state_abbv == "CA") %>% 
+  clean_names() %>% 
+  mutate(county_name = tolower(str_replace(county_name, " County", "")))
+
+act_vio <- read_csv("data/04_water-regulatory-information/hr2w_web_data_active_2-2019.csv") %>% 
+  clean_names() %>% 
+  mutate(county = tolower(county)) %>% 
+  separate(col = result, into = c("result_value", "result_units"), sep = " ", convert = TRUE) %>% 
+  separate(col = mcl, into = c("mcl_value", "mcl_units"), sep = " ", convert = TRUE)
+
+fips_codes <- read_csv("data/fips-codes.csv") %>% 
+  clean_names() %>% 
+  mutate(name = tolower(name))
+```
+
+
+```{r}
+act_vio_fips <- left_join(act_vio, fips_codes, by = c("county" = "name"))
+
+# Calculate differences for each analyte
+# This likely is of little value as health effect for each analyte may be difference
+# Ex: small increase in arsenic may be of greater concern than iron
+# act_vio_fips %>% 
+#   group_by(analyte_name) %>% 
+#   summarize(med_above_threshold = median(above_threshold, na.rm = T))
+```
+
