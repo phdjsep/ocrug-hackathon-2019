@@ -61,68 +61,11 @@ act_vio_fips <- left_join(act_vio, fips_codes, by = c("county" = "name"))
 act_vio %>% 
   group_by(county) %>% 
   count() %>% 
+  ungroup() %>% 
   right_join(ca_counties, by = c("county" = "county_name")) %>% 
-  mutate(n = replace_na(n, 0)) %>% 
-  ggplot(aes(long, lat, group = group, fill = log(n))) +
-    geom_polygon(color = "#ffffff", size = 0.05) +
+  ggplot(aes(long, lat, group = group, fill = n)) +
+    geom_polygon(fill = "grey", color = "#ffffff", size = 0.05) +
     coord_map(projection = "albers", lat0 = 39, lat1 = 45)
 
-
 # all violations by county (by year)
-act_vio %>% 
-  group_by(county, year = year(viol_begin_date)) %>% 
-  count() %>% 
-  ungroup() %>% 
-  right_join(ca_counties, by = c("county" = "county_name")) %>% 
-  mutate(n = replace_na(n, 0),
-         year = replace_na(year, 0)) %>% 
-  filter(year >= 2012 & year != 2019) %>% 
-  ggplot(aes(long, lat, group = group, fill = log(n))) +
-    geom_polygon(color = "#ffffff", size = 0.05) +
-    coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
-    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-          panel.background = element_blank(), axis.line = element_line(colour = "black")) +
-    facet_grid(year ~ .)
-
-act_vio %>% 
-  group_by(county, year = year(viol_begin_date)) %>% 
-  count() %>% 
-  ungroup() %>% 
-  right_join(ca_counties, by = c("county" = "county_name")) %>% 
-  mutate(n = replace_na(n, 0),
-         year = replace_na(year, 0)) %>% 
-  filter(year >= 2012 & year != 2019) %>%
-  ggplot(aes(long, lat, group = group, fill = n)) +
-    geom_polygon(color = "#ffffff", size = 0.05) +
-    coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
-    theme_void() +
-    theme(legend.position = 'none') +
-    facet_wrap(. ~ year) +
-  ggtitle("Total Violations Per County by Year")
 ```
-
-```{r}
-# Most common violation types
-act_vio %>% 
-  count(violation_type_name) %>% 
-  arrange(desc(n)) %>% 
-  head(10) %>% 
-  kable(format = 'markdown')
-
-# Most common analytes in violation
-act_vio %>% 
-  count(analyte_name) %>% 
-  arrange(desc(n)) %>% 
-  head(10) %>% 
-  kable(format = 'markdown')
-
-# What analytes show greatest departure from acceptable level
-act_vio %>% 
-  mutate(above_threshold = result_value - mcl_value) %>% 
-  group_by(analyte_name) %>% 
-  summarize(median_above_threshold = median(above_threshold, na.rm = TRUE)) %>% 
-  arrange(desc(median_above_threshold)) %>% 
-  head(10) %>% 
-  kable(format = 'markdown')
-```
-

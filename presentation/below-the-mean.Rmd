@@ -29,9 +29,47 @@ class: inverse
 - What analytes show the largest departure from acceptable threshold on average?
 
 ---
-class: inverse, center, middle
+class: center, middle
 
-# Get Started
+### Total Violations per County
+
+```{r, echo = FALSE, out.width="500px", out.height="550px"}
+knitr::include_graphics("images/total-violations-all-years.png")
+```
+
+---
+
+# Top 10 Analytes Found in Violation
+
+|analyte_name                  |    n|
+|:-----------------------------|----:|
+|ARSENIC                       | 2609|
+|NITRATE                       |  898|
+|TTHM                          |  878|
+|COMBINED URANIUM              |  578|
+|TOTAL HALOACETIC ACIDS (HAA5) |  403|
+|SWTR                          |  290|
+|1,2,3-TRICHLOROPROPANE        |  190|
+|FLUORIDE                      |  147|
+|NITRATE-NITRITE               |  122|
+|GROSS ALPHA PARTICLE ACTIVITY |   64|
+
+---
+
+## Analytes with Largest Median Value Above Recommended Threshold
+
+|analyte_name                  | median_above_threshold|
+|:-----------------------------|----------------------:|
+|GROSS ALPHA, EXCL. RADON & U  |                180.000|
+|URANIUM-238                   |                120.000|
+|COMBINED RADIUM (-226 & -228) |                 40.000|
+|ASBESTOS                      |                 22.500|
+|GROSS ALPHA PARTICLE ACTIVITY |                 18.515|
+|NITRATE                       |                 13.000|
+|COMBINED URANIUM              |                 11.000|
+|MERCURY                       |                 10.998|
+|NITRATE-NITRITE               |                  3.000|
+|IRON                          |                  1.700|
 
 ---
 
