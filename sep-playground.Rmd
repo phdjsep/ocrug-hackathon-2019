@@ -97,8 +97,7 @@ act_vio %>%
     coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
     theme_void() +
     theme(legend.position = 'none') +
-    facet_wrap(. ~ year) +
-  ggtitle("Total Violations Per County by Year")
+    facet_wrap(. ~ year)
 ```
 
 ```{r}

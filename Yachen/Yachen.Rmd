@@ -1,0 +1,27 @@
+---
+title: "Presentation"
+author: "Below the Mean"
+date: "5/19/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r cars}
+setwd("~/Desktop/Hackathon/plots")
+library(imager)
+myimg1 <- load.image("Rplot_2012.png")
+plot(myimg1, axes = FALSE)
+myimg2 <- load.image("Rplot_2013.png")
+plot(myimg2, axes = FALSE)
+myimg3 <- load.image("Rplot_2014.png")
+plot(myimg3, axes = FALSE)
+myimg4 <- load.image("Rplot_2015.png")
+plot(myimg4, axes = FALSE)
+myimg5 <- load.image("Rplot_2016.png")
+plot(myimg5, axes = FALSE)
+myimg6 <- load.image("Rplot_2017.png")
+plot(myimg6, axes = FALSE)
+```
