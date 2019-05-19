@@ -10,23 +10,23 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
+class: inverse 
 
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
+# Focus: Violations dataset
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-```
+- ~ 6,400 violations 
+- Characteristics: 
+  - Violation type
+  - Analyte in violation
+  - Amount above threshold
+  - Date and time of violation.
 
-???
+# Goal
 
-Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
-
----
-class: center, middle
-
-# xaringan
-
-### /ʃaː.'riŋ.ɡan/
+- Where are violations occurring most? changes over time?
+- What are the most common violations?
+- What is the response time to resolution of violations? Do more affluent counties have quicker resolution times?
+- What analytes show the largest departure from acceptable threshold on average?
 
 ---
 class: inverse, center, middle
