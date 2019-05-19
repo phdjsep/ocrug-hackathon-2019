@@ -57,10 +57,16 @@ act_vio_fips <- left_join(act_vio, fips_codes, by = c("county" = "name"))
 ```
 
 ```{r}
-ca_counties %>%
-    ggplot(aes(long, lat, group = group)) +
+# all violations by county (all time)
+act_vio %>% 
+  group_by(county) %>% 
+  count() %>% 
+  ungroup() %>% 
+  right_join(ca_counties, by = c("county" = "county_name")) %>% 
+  ggplot(aes(long, lat, group = group, fill = n)) +
     geom_polygon(fill = "grey", color = "#ffffff", size = 0.05) +
-    coord_map(projection = "albers", lat0 = 39, lat1 = 45) + 
-    geom_text(data = get_urbn_labels(map = "counties"), aes(x = long, lat, label = county_name), size = 3)
-```
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45)
 
+
+# all violations by county (by year)
+```
